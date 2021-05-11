@@ -1,0 +1,10 @@
+<AppUpdater>
+  <update>
+    <latestVersion>1.1</latestVersion>
+    <latestVersionCode>2</latestVersionCode>
+    <url>https://github.com/SoGho2580/AppUpdater/releases</url>
+    <releaseNotes>
+-Second release
+    </releaseNotes>
+  </update>
+</AppUpdater>
