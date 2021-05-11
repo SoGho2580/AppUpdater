@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         appUpdater.setUpdateXML("https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.xml");
         appUpdater.setDisplay(Display.DIALOG).setCancelable(true);
         appUpdater.setTitleOnUpdateAvailable("Update available")
-                .setContentOnUpdateAvailable("Check out the latest version available of my app!")
+                .setContentOnUpdateAvailable("Click 'Update now?' to update your app")
                 .setTitleOnUpdateNotAvailable("Update not available")
                 .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
                 .setButtonUpdate("Update now?");
