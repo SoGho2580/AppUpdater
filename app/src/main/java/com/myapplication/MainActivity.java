@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.Display;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar1=findViewById(R.id.toolbar1);
         LinearLayout linear2=findViewById(R.id.linear2);
         textview5=findViewById(R.id.textview5);
+        AppUpdater appUpdater = new AppUpdater(this);
+        appUpdater.start();
+        appUpdater.setDisplay(Display.DIALOG).setCancelable(false);
+        appUpdater.setDisplay(Display.NOTIFICATION);
+        appUpdater.setUpdateFrom(UpdateFrom.XML).setUpdateXML("https://github.com/SoGho2580/AppUpdater/raw/master/app/update.xml");
         Button button2=findViewById(R.id.button2);
 
         textview5.setText(user.getEmail());
