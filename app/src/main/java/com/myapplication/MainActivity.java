@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog prog= new ProgressDialog(MainActivity.this);prog.setMax(100);prog.setMessage("Checking for updates...");prog.setIndeterminate(true);prog.setCancelable(false);
+                //final ProgressDialog prog= new ProgressDialog(MainActivity.this);prog.setMax(100);prog.setMessage("Checking for updates...");prog.setIndeterminate(true);prog.setCancelable(false);
                 updateCheck();
             }
         });
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCheck() {
-        prog.show();
+        //prog.show();
         AppUpdater appUpdater = new AppUpdater(this);
         appUpdater.setUpdateFrom(UpdateFrom.XML);
         appUpdater.setUpdateXML("https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.xml");
@@ -78,6 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 //.setButtonDismissClickListener(...)
         appUpdater.showAppUpdated(true);
         appUpdater.start();
-        prog.cancel();
+        //prog.cancel();
     }
 }
