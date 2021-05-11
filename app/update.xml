@@ -1,10 +1,10 @@
 <AppUpdater>
   <update>
-    <latestVersion>1.2.3</latestVersion>
-    <latestVersionCode>6</latestVersionCode>
-    <url>https://github.com/SoGho2580/AppUpdater/releases</url>
+    <latestVersion>1.2.5</latestVersion>
+    <latestVersionCode>8</latestVersionCode>
+    <url>https://www.dropbox.com/s/dpdujz91vlxd13n/app-debug.apk?dl=1</url>
     <releaseNotes>
--Second release
+-Seventh release
     </releaseNotes>
   </update>
 </AppUpdater>
