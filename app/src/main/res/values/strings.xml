@@ -21,4 +21,5 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="splash_image">Splash Image</string>
+    <string name="check_for_updates">Check for updates</string>
 </resources>

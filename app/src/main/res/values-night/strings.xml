@@ -9,4 +9,5 @@
     <string name="back"><![CDATA[<<Back]]></string>
     <string name="registered_email_address">Registered Email Address</string>
     <string name="splash_image">Splash Image</string>
+    <string name="check_for_updates">Check for updates</string>
 </resources>
