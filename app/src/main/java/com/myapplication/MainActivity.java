@@ -2,6 +2,7 @@ package com.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Intent i = new Intent();
     private FirebaseUser user;
     private Button button4;
+    private ProgressDialog prog;
 
 
     @Override
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ProgressDialog prog= new ProgressDialog(MainActivity.this);prog.setMax(100);prog.setMessage("Checking for updates...");prog.setIndeterminate(true);prog.setCancelable(false);
                 updateCheck();
             }
         });
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCheck() {
+        prog.show();
         AppUpdater appUpdater = new AppUpdater(this);
         appUpdater.setUpdateFrom(UpdateFrom.XML);
         appUpdater.setUpdateXML("https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.xml");
@@ -74,5 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 //.setButtonDismissClickListener(...)
         appUpdater.showAppUpdated(true);
         appUpdater.start();
+        prog.cancel();
     }
 }
