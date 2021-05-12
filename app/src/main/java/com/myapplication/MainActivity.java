@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTitleOnUpdateNotAvailable("Update not available")
                 .setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
                 .setButtonUpdate("Update now?");
-                //.setButtonUpdateClickListener(new View.OnClickListener)
+                //.setButtonUpdateClickListener()
 	appUpdater.setButtonDismiss("Maybe later");
                 //.setButtonDismissClickListener(...)
         appUpdater.showAppUpdated(true);
