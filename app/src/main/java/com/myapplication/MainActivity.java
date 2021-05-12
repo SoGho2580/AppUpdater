@@ -3,7 +3,10 @@ package com.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+
+        Context context = getApplicationContext();
+        PackageManager manager = context.getPackageManager();
+        try{
+            PackageInfo pinfo = manager.getPackageInfo(context.getPackageName(),0);
+            String verName = pinfo.versionName;
+            int verCode = pinfo.versionCode;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateCheck() {
