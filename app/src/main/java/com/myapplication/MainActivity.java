@@ -68,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Context context = getApplicationContext();
         PackageManager manager = context.getPackageManager();
         try{
             PackageInfo pinfo = manager.getPackageInfo(context.getPackageName(),0);
             String verName = pinfo.versionName;
             int verCode = pinfo.versionCode;
+            textview5.setText("Your version: "+verCode);
         }
         catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
