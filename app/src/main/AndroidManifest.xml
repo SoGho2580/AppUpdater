@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".XMLParser"></activity>
-        <activity android:name=".XMLParse" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StartActivity">
