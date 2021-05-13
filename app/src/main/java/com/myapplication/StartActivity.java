@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.github.javiersantos.appupdater.AppUpdater;
-import com.github.javiersantos.appupdater.enums.Display;
-import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -67,9 +64,6 @@ import java.util.Objects;
         TextView textview1 = findViewById(R.id.textview1);
         SharedPreferences user = getSharedPreferences("user", Activity.MODE_PRIVATE);
         Intent i= new Intent();
-        AppUpdater appUpdater = new AppUpdater(this);
-        appUpdater.start();
-        appUpdater.setDisplay(Display.DIALOG).setCancelable(false);
         textview1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

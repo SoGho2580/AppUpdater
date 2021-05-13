@@ -25,36 +25,5 @@
         android:clickable="true"
         android:focusable="true"
         />
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/button_rounded"
-        android:layout_marginTop="100dp"
-        android:text="@string/check_for_updates"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textAllCaps="false"
-        android:clickable="true"
-        android:focusable="true"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:textSize="30sp"
-        android:id="@+id/textview5"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:textSize="30sp"
-        android:id="@+id/textview6"
-        />
+
 </LinearLayout>
