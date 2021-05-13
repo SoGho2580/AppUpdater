@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user;
     private Button button4;
     private ProgressDialog prog;
+    private TextView textview5;
+    private TextView textview6;
 
 
     @Override
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar1 = findViewById(R.id.toolbar1);
         LinearLayout linear2 = findViewById(R.id.linear2);
+        textview5 = findViewById(R.id.textview5);
+        textview6 = findViewById(R.id.textview6);
         button4 = findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class XMLParse extends AsyncTask {
     URL url;
-    ArrayList<Integer> verCode = new ArrayList();
-    ArrayList<String> verName = new ArrayList();
+    Integer verCode = null;
+    String verName = null;
     @Override
     protected Object doInBackground(Object[] objects) {
         try {
@@ -32,10 +32,10 @@ public class XMLParse extends AsyncTask {
                         insideItem = true;
                     } else if (xpp.getName().equalsIgnoreCase("verName")) {
                         if (insideItem)
-                            verName.add(xpp.nextText());
+                            verName = xpp.nextText();
                     } else if (xpp.getName().equalsIgnoreCase("verCode")) {
                         if (insideItem)
-                            verCode.add(Integer.valueOf(xpp.nextText()));
+                            verCode = Integer.valueOf(xpp.nextText());
                     }
                 } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("update")) {
                     insideItem = false;
