@@ -1,7 +1,8 @@
 {
-  "verCode": 7,
-  "verName": "1.2.4",
-  "releaseNotes": [
-    "- Seventh release"
+  "Update": [
+    {
+      "verCode": 7,
+      "verName": "1.2.4",
+    }
   ]
 }
