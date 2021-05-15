@@ -19,11 +19,14 @@ public class Handler {
         String result = null;
         try {
             URL url = new URL(requestUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
             connection.setRequestMethod("GET");
-
-            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-            result = convertResultToString(inputStream);
+            try {
+                InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+                result = convertResultToString(inputStream);
+            } finally {
+                connection.disconnect();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,13 +37,14 @@ public class Handler {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder stringBuilder = new StringBuilder();
 
-        String li;
+        String li = null;
 
         while (true) {
             try {
-                if ((li = bufferedReader.readLine()) == null) {
-                    stringBuilder.append('\n');
+                if ((li = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(li + "\n");
                 }
+                //inputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

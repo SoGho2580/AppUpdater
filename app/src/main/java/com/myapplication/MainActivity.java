@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private Intent i = new Intent();
     private FirebaseUser user;
     private ProgressDialog prog;
+    private TextView textview6;
+    private Button button4;
     private static String url = "https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.json";
 
     @Override
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar1 = findViewById(R.id.toolbar1);
         LinearLayout linear2 = findViewById(R.id.linear2);
         Button button2 = findViewById(R.id.button2);
+        textview6 = findViewById(R.id.textview6);
+        button4 = findViewById(R.id.button4);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,17 +75,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class getNames extends AsyncTask<Void,Void,Void>{
+    public class getNames extends AsyncTask<Void,Void,Void>{
 
         @Override
+
         public Void doInBackground(Void... voids) {
             Handler handler = new Handler();
             String jsonString = handler.httpServiceCall(url);
             if(jsonString!=null){
                 try {
                     JSONObject jsonObject1 = new JSONObject();
-                        Integer LverCode = Integer.valueOf(jsonObject1.getString("verCode"));
+                        int LverCode = jsonObject1.getInt("verCode");
                         String LverName = jsonObject1.getString("verName");
+                        textview6.setText("Latest version: "+LverCode);
 
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(),"Json Parsing Error"+e,Toast.LENGTH_LONG).show();
@@ -89,22 +96,24 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),"Json Parsing Error"+e,Toast.LENGTH_LONG).show();
+                            textview6.setText("null");
                         }
                     });
                 }
             }
             else {
                 Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_LONG).show();
+                textview6.setText("null2");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_LONG).show();
+                        textview6.setText("null1");
                     }
                 });
 
             }
             return null;
         }
-
     }
 }
