@@ -100,13 +100,12 @@ public class MainActivity extends AppCompatActivity{
             public String doInBackground(String... strings) {
 
                 try {
-                    String url = "https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.json";
+                    String url = "https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.txt";
                     Connection connection = Jsoup.connect(url);
                     Document doc = connection.get();
                     Lvercode = doc.text();
                 } catch (Exception e) {
                     System.out.println("Exception: "+e);
-
                 }
                 return Lvercode;
             }
