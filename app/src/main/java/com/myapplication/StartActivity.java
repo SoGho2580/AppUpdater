@@ -96,7 +96,7 @@ import java.util.Objects;
                     String email=Objects.requireNonNull(edittext1.getText()).toString();
                     String password= Objects.requireNonNull(edittext2.getText()).toString();
                     if(!email.isEmpty() && !password.isEmpty()){
-                        final ProgressDialog prog= new ProgressDialog(StartActivity.this);prog.setMax(100);prog.setMessage("Logging in...");prog.setIndeterminate(true);prog.setCancelable(true);
+                        final ProgressDialog prog= new ProgressDialog(StartActivity.this);prog.setMax(100);prog.setMessage("Logging in...");prog.setIndeterminate(true);prog.setCancelable(false);
                         prog.show();
                         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(StartActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override

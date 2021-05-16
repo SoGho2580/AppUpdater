@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -60,16 +61,21 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
         {
             try {
-                new getNames().execute();
+                new Update().execute();
             }
             catch (Exception e){
                 textview6.setText("Excpetion: "+e);
             }
         }
+            }
+        });
 
-        Context context = getApplicationContext();
+        /*Context context = getApplicationContext();
         PackageManager manager = context.getPackageManager();
         try {
             PackageInfo pinfo = manager.getPackageInfo(context.getPackageName(), 0);
@@ -77,9 +83,9 @@ public class MainActivity extends AppCompatActivity{
             int verCode = pinfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
     }
-        public class getNames extends AsyncTask<String , Void, String>{
+        public class Update extends AsyncTask<String , Void, String>{
 
         private String result = null;
         private String Lvercode = null;
@@ -87,7 +93,9 @@ public class MainActivity extends AppCompatActivity{
         public void onPreExecute(){
 
             super.onPreExecute();
-            textview6.setText("Loading...");
+            prog = new ProgressDialog(MainActivity.this);
+            prog.setMax(100);prog.setMessage("Checking...");prog.setIndeterminate(true);prog.setCancelable(false);
+            prog.show();
         }
 
             @Override
@@ -103,12 +111,33 @@ public class MainActivity extends AppCompatActivity{
                 }
                 return Lvercode;
             }
-            public void onPostExecute(final String s){
+            public void onPostExecute(String s){
             super.onPostExecute(s);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textview6.setText(s);
+                        int LverCode = Integer.parseInt(s);
+                        Context context = getApplicationContext();
+                        PackageManager manager = context.getPackageManager();
+                        try {
+                            PackageInfo pinfo = manager.getPackageInfo(context.getPackageName(), 0);
+                            String verName = pinfo.versionName;
+                            int verCode = pinfo.versionCode;
+                            if (LverCode==verCode){
+                                //textview6.setText("You have the latest version!"+verName);
+                                String update = "You have the latest version!";
+                                prog.dismiss();
+                                textview6.setText(update);
+                            }
+                            else {
+                                String update = "Update available";
+                                prog.dismiss();
+                                textview6.setText(update);
+                            }
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        //textview6.setText();
                     }});
             }
         }
