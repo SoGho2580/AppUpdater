@@ -10,23 +10,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Toolbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.json.JSONException;
+//import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import javax.xml.parsers.SAXParserFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
     private Toolbar toolbar1;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog prog;
     private TextView textview6;
     private Button button4;
-    private static String url = "https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.json";
+    //private static String url = "https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.json";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        {
+            try {
+                new getNames().execute();
+            }
+            catch (Exception e){
+                textview6.setText("Excpetion: "+e);
+            }
+        }
+
         Context context = getApplicationContext();
         PackageManager manager = context.getPackageManager();
         try {
@@ -74,46 +85,38 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+        public class getNames extends AsyncTask<String , Void, String>{
 
-    public class getNames extends AsyncTask<Void,Void,Void>{
+        private String result = null;
+        private String Lvercode = null;
+            @Override
+        public void onPreExecute(){
 
-        @Override
+            super.onPreExecute();
+            textview6.setText("Loading...");
+        }
 
-        public Void doInBackground(Void... voids) {
-            Handler handler = new Handler();
-            String jsonString = handler.httpServiceCall(url);
-            if(jsonString!=null){
+            @Override
+            public String doInBackground(String... strings) {
+
                 try {
-                    JSONObject jsonObject1 = new JSONObject();
-                        int LverCode = jsonObject1.getInt("verCode");
-                        String LverName = jsonObject1.getString("verName");
-                        textview6.setText("Latest version: "+LverCode);
+                    String url = "https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.json";
+                    Connection connection = Jsoup.connect(url);
+                    Document doc = connection.get();
+                    Lvercode = doc.text();
+                } catch (Exception e) {
+                    System.out.println("Exception: "+e);
 
-                } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(),"Json Parsing Error"+e,Toast.LENGTH_LONG).show();
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),"Json Parsing Error"+e,Toast.LENGTH_LONG).show();
-                            textview6.setText("null");
-                        }
-                    });
                 }
+                return Lvercode;
             }
-            else {
-                Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_LONG).show();
-                textview6.setText("null2");
+            public void onPostExecute(final String s){
+            super.onPostExecute(s);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(),"Server Error",Toast.LENGTH_LONG).show();
-                        textview6.setText("null1");
-                    }
-                });
-
+                        textview6.setText(s);
+                    }});
             }
-            return null;
         }
-    }
 }
