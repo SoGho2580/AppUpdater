@@ -1,7 +1,10 @@
 package com.myapplication;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,7 +22,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -125,9 +130,20 @@ public class MainActivity extends AppCompatActivity{
                             int verCode = pinfo.versionCode;
                             if (LverCode==verCode){
                                 //textview6.setText("You have the latest version!"+verName);
-                                String update = "You have the latest version!";
+                                String update = "No updates available! You have the latest version!";
+                                //prog.dismiss()
+                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                alertDialog.setTitle("Update");
+                                alertDialog.setMessage(update);
+                                alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        textview6.setVisibility(View.INVISIBLE);
+                                    }
+                                });
                                 prog.dismiss();
-                                textview6.setText(update);
+                                alertDialog.show();
+                                //textview6.setText(update);
                             }
                             else {
                                 String update = "Update available";
@@ -137,7 +153,6 @@ public class MainActivity extends AppCompatActivity{
                         } catch (PackageManager.NameNotFoundException e) {
                             e.printStackTrace();
                         }
-                        //textview6.setText();
                     }});
             }
         }
