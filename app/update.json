@@ -1,4 +1,8 @@
 {
-  "verCode": 7,
-  "verName": "1.2.4"
+  "update": [
+    {
+      "verCode": 7,
+      "verName": "1.2.4"
+    }
+  ]
 }
