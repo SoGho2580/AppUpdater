@@ -132,17 +132,17 @@ public class MainActivity extends AppCompatActivity{
                                 //textview6.setText("You have the latest version!"+verName);
                                 String update = "No updates available! You have the latest version!";
                                 //prog.dismiss()
-                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                                alertDialog.setTitle("Update");
-                                alertDialog.setMessage(update);
-                                alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("Update");
+                                builder.setMessage(update);
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         textview6.setVisibility(View.INVISIBLE);
                                     }
                                 });
                                 prog.dismiss();
-                                alertDialog.show();
+                                builder.show();
                                 //textview6.setText(update);
                             }
                             else {
