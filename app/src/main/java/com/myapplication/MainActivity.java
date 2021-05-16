@@ -13,8 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,10 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-//import com.google.gson.JsonObject;
-import org.json.JSONObject;
 
-import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -39,7 +34,6 @@ public class MainActivity extends AppCompatActivity{
     private ProgressDialog prog;
     private TextView textview6;
     private Button button4;
-    //private static String url = "https://raw.githubusercontent.com/SoGho2580/AppUpdater/master/app/update.json";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
