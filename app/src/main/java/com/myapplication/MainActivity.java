@@ -1,7 +1,6 @@
 package com.myapplication;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,11 +9,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import org.jsoup.Connection;
@@ -22,9 +21,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -116,7 +113,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 return Lvercode;
             }
-            public void onPostExecute(String s){
+            public void onPostExecute(final String s){
             super.onPostExecute(s);
                 runOnUiThread(new Runnable() {
                     @Override
@@ -129,26 +126,27 @@ public class MainActivity extends AppCompatActivity{
                             String verName = pinfo.versionName;
                             int verCode = pinfo.versionCode;
                             if (LverCode==verCode){
-                                //textview6.setText("You have the latest version!"+verName);
-                                String update = "No updates available! You have the latest version!";
-                                //prog.dismiss()
+                                String update = "You have the latest version: "+verName;
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                builder.setTitle("Update");
+                                builder.setTitle("No updates available!");
                                 builder.setMessage(update);
-                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        textview6.setVisibility(View.INVISIBLE);
-                                    }
-                                });
+                                builder.setPositiveButton("Ok", (dialog, which) -> textview6.setVisibility(View.INVISIBLE));
                                 prog.dismiss();
                                 builder.show();
-                                //textview6.setText(update);
                             }
                             else {
-                                String update = "Update available";
+                                String update = "New update is ready to be downloaded! Click 'Update now' to update now!";
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("New update available!");
+                                builder.setMessage(update);
+                                builder.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                                builder.setNegativeButton("Later",(dialog, which) -> textview6.setVisibility(View.INVISIBLE));
                                 prog.dismiss();
-                                textview6.setText(update);
+                                builder.show();
                             }
                         } catch (PackageManager.NameNotFoundException e) {
                             e.printStackTrace();
