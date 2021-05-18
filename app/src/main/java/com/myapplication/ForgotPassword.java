@@ -43,12 +43,11 @@ public class ForgotPassword extends AppCompatActivity {
         button3 = findViewById(R.id.button3);
         textview4 = findViewById(R.id.textview4);
         Intent i = new Intent();
-
         textview4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i.setClass(getApplicationContext(), StartActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             }
         });

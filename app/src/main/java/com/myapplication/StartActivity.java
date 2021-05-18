@@ -1,6 +1,7 @@
     package com.myapplication;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,6 @@ import java.util.Objects;
     private TextView textview1;
     private Intent i =new Intent();
     private SharedPreferences user;
-    private ProgressDialog prog;
     private OnCompleteListener<AuthResult> _mAuth_sign_in_listener;
     private void reload(){}
     private void updateUI(FirebaseUser user){}
@@ -96,7 +96,8 @@ import java.util.Objects;
                     String email=Objects.requireNonNull(edittext1.getText()).toString();
                     String password= Objects.requireNonNull(edittext2.getText()).toString();
                     if(!email.isEmpty() && !password.isEmpty()){
-                        final ProgressDialog prog= new ProgressDialog(StartActivity.this);prog.setMax(100);prog.setMessage("Logging in...");prog.setIndeterminate(true);prog.setCancelable(false);
+                        final ProgressDialog prog = new ProgressDialog(StartActivity.this);
+                        prog.setMax(100);prog.setMessage("Logging in...");prog.setIndeterminate(true);prog.setCancelable(false);
                         prog.show();
                         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(StartActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -169,6 +170,4 @@ import java.util.Objects;
 
 }}  );}*/
 
-    public void onClick(View view) {
-    }
 }

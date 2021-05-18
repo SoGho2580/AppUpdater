@@ -142,29 +142,28 @@ public class MainActivity extends AppCompatActivity{
                                 builder.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        class UpdateDownload extends AsyncTask<Void,Void,Void>{
 
                                             FirebaseStorage storage = FirebaseStorage.getInstance();
                                             StorageReference reference = storage.getReference();
-                                           @Override
-                                            public Void doInBackground(Void... voids){
-                                               StorageReference reference = storage.getReference();
                                                StorageReference gsreference = storage.getReferenceFromUrl("gs://my-chat-app-9cf4a.appspot.com/app-release.apk");
                                                try {
-                                                   File localFile = File.createTempFile("update","apk");
+                                                   String apkname = pinfo.packageName;
+                                                   File mydir = context.getDir(apkname, Context.MODE_APPEND);
+                                                   File file = new File(mydir, "localFile");
+                                                   File localFile = File.createTempFile("update",".apk",mydir);
                                                    gsreference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                                        @Override
                                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                           Toast.makeText(MainActivity.this,"Apk downloaded successfully!",Toast.LENGTH_SHORT).show();
+                                                           Toast.makeText(MainActivity.this,"Apk downloaded successfully!"+mydir,Toast.LENGTH_LONG).show();
                                                        }
                                                    });
                                                } catch (IOException e) {
                                                    e.printStackTrace();
                                                }
-                                               return null;
+                                               //return null;
                                            }
-                                        }
-                                    }
+
+
                                 });
                                 builder.setNegativeButton("Later", new DialogInterface.OnClickListener() {
                                             @Override
