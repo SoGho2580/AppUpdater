@@ -1,6 +1,6 @@
 package com.myapplication;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,13 +22,21 @@ import org.jsoup.nodes.Document;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
+    private FirebaseStorage storage;
     private Toolbar toolbar1;
     private Button button2;
     private LinearLayout linear2;
@@ -42,6 +50,7 @@ public class MainActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         setContentView(R.layout.activity_main);
         Toolbar toolbar1 = findViewById(R.id.toolbar1);
@@ -77,15 +86,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        /*Context context = getApplicationContext();
-        PackageManager manager = context.getPackageManager();
-        try {
-            PackageInfo pinfo = manager.getPackageInfo(context.getPackageName(), 0);
-            String verName = pinfo.versionName;
-            int verCode = pinfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }*/
     }
         public class Update extends AsyncTask<String , Void, String>{
 
@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity{
                                 builder.setTitle("No updates available!");
                                 builder.setMessage(update);
                                 builder.setPositiveButton("Ok", (dialog, which) -> textview6.setVisibility(View.INVISIBLE));
-                                prog.dismiss();
                                 builder.show();
+                                prog.dismiss();
                             }
                             else {
                                 String update = "New update is ready to be downloaded! Click 'Update now' to update now!";
@@ -142,11 +142,37 @@ public class MainActivity extends AppCompatActivity{
                                 builder.setPositiveButton("Update now", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        class UpdateDownload extends AsyncTask<Void,Void,Void>{
+
+                                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                                            StorageReference reference = storage.getReference();
+                                           @Override
+                                            public Void doInBackground(Void... voids){
+                                               StorageReference reference = storage.getReference();
+                                               StorageReference gsreference = storage.getReferenceFromUrl("gs://my-chat-app-9cf4a.appspot.com/app-release.apk");
+                                               try {
+                                                   File localFile = File.createTempFile("update","apk");
+                                                   gsreference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                       @Override
+                                                       public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                           Toast.makeText(MainActivity.this,"Apk downloaded successfully!",Toast.LENGTH_SHORT).show();
+                                                       }
+                                                   });
+                                               } catch (IOException e) {
+                                                   e.printStackTrace();
+                                               }
+                                               return null;
+                                           }
+                                        }
                                     }
                                 });
-                                builder.setNegativeButton("Later",(dialog, which) -> textview6.setVisibility(View.INVISIBLE));
-                                prog.dismiss();
+                                builder.setNegativeButton("Later", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
                                 builder.show();
+                                prog.dismiss();
                             }
                         } catch (PackageManager.NameNotFoundException e) {
                             e.printStackTrace();
