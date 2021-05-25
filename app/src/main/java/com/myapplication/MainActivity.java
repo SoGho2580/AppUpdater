@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity{
                                                    gsreference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                                        @Override
                                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                           Toast.makeText(MainActivity.this,"Apk downloaded successfully!"+mydir,Toast.LENGTH_LONG).show();
+                                                           Toast.makeText(MainActivity.this,"Apk downloaded successfully!",Toast.LENGTH_LONG).show();
                                                        }
                                                    });
                                                } catch (IOException e) {
