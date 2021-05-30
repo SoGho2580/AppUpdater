@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity{
                 new Update().execute();
             }
             catch (Exception e){
-                textview6.setText("Excpetion: "+e);
+                textview6.setText("Exception: "+e);
             }
         }
             }
