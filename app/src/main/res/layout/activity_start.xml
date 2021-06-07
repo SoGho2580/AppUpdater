@@ -5,7 +5,17 @@
     android:layout_height="match_parent"
     android:gravity="top"
     android:orientation="vertical"
-    android:background="@color/black">
+    android:background="#000000">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/ic_baseline_login_24"
+        android:padding="60dp"
+        android:contentDescription="@string/login_image"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -16,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginTop="150sp"
+        android:layout_marginTop="10sp"
         android:autofillHints="@string/email_address"
         android:gravity="center_vertical"
         android:hint="@string/email_address"

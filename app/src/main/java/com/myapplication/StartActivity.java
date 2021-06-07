@@ -31,9 +31,7 @@ import java.util.Objects;
 
 
     private static final String TAG = "EmailPassword";
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
 
     private LinearLayout linear1;
     private TextInputLayout textinputlayout1;

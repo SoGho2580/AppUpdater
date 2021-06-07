@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar1 = findViewById(R.id.toolbar1);
         LinearLayout linear2 = findViewById(R.id.linear2);
         Button button2 = findViewById(R.id.button2);
-        textview6 = findViewById(R.id.textview6);
         button4 = findViewById(R.id.button4);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
