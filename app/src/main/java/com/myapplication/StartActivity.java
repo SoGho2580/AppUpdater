@@ -1,6 +1,8 @@
     package com.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -21,16 +23,20 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import android.content.Intent;
 import android.app.Activity;
 import android.content.SharedPreferences;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
     public class StartActivity extends AppCompatActivity {
 
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = "FirebaseTopic";
     private FirebaseAuth mAuth;
 
     private LinearLayout linear1;
@@ -51,6 +57,26 @@ import java.util.Objects;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        PackageManager packageManager = getApplicationContext().getPackageManager();
+        try {
+            PackageInfo pInfo = packageManager.getPackageInfo(getApplicationContext().getPackageName(), 0);
+            int verCode = pInfo.versionCode;
+            String verName = pInfo.versionName;
+            FirebaseMessaging.getInstance().subscribeToTopic(String.valueOf(verCode))
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            String result = "You are using version: "+verName;
+                        if(!task.isSuccessful()){
+                            result = "Can't connect to Firebase! Check your network and restart the app or contact developer!";
+                        }
+                        Log.d(TAG, result);
+                        Toast.makeText(StartActivity.this,result,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_start);
 
         LinearLayout _nav_view = (LinearLayout) findViewById(R.id._nav_view);
